@@ -1,31 +1,35 @@
 Cypress.Commands.add('fillMandatoryFieldsandSubmit', function(nome,sobrenome,email,area) {
-    cy.get('#firstName').type(nome)
+    
+  cy.clock()
+
+  cy.get('#firstName').type(nome)
     cy.get('#lastName').type(sobrenome)
     cy.get('#email').type(email)
-    cy.get('#open-text-area').type(area)  //cy.get('button[type="submit"]').click()
+    cy.get('#open-text-area').type(area)  
     cy.contains('button','Enviar').click()
 })
 
 Cypress.Commands.add('erroEmailFormatoInvalido', function(nome,sobrenome,email,area) {
+    cy.clock()
     cy.get('#firstName').type(nome)
     cy.get('#lastName').type(sobrenome)
     cy.get('#email').type(email)
-    cy.get('#open-text-area').type(area)  //cy.get('button[type="submit"]').click()
+    cy.get('#open-text-area').type(area)  
     cy.contains('button','Enviar').click()
 })
 
-Cypress.Commands.add('verificaTelefoneVazioNaoNumerico', function(nome,sobrenome,email,area,fone) {
-    cy.get('#firstName').type(nome)
-    cy.get('#lastName').type(sobrenome)
-    cy.get('#email').type(email)
-    cy.get('#open-text-area').type(area)  //cy.get('button[type="submit"]').click()
-    cy.get('#phone')
-      .type('abcdefhhi')
-    cy.contains('button','Enviar').click()
+Cypress.Commands.add('verificaTelefoneVazioNaoNumerico', function(fone) {
+    
+  Cypress._.times(3,function() { 
+      cy.get('#phone')
+        .type(fone)
+  })
+
 })
 
 Cypress.Commands.add('foneObrigatorioNaoPreenchido', function(nome,sobrenome,email,area) {
-    cy.get('#firstName').type(nome)
+  cy.clock()  
+  cy.get('#firstName').type(nome)
     cy.get('#lastName').type(sobrenome)
     cy.get('#email').type(email)
     cy.get('#phone-checkbox').check()
@@ -199,3 +203,4 @@ Cypress.Commands.add('abrirPoliticaPrivacidadeOutraAbaSemTargetComClick', functi
 })
 
 
+ 
